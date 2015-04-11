@@ -6,9 +6,7 @@ router.get('/repopulate', function (req, res, next) {
     //drop database
     //scrape all
     //repopulate database
-    
-    scraper.sayHi();
-    res.send('success');
+    scraper.repopulate(req, res, next);
 });
 
 // smart-scrapes GDN for data since last updated date
