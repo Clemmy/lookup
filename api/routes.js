@@ -10,8 +10,12 @@ router.get('/repopulate', function (req, res, next) {
 });
 
 // smart-scrapes GDN for data since last updated date
-router.get('/fetch', function(req, res, next) {
-   var date = req.body.date;
+router.get('/delta', function(req, res, next) {
+    var date = req.body.date;
+});
+
+router.get('/transientevent', function(req, res, next) {
+
 });
 
 module.exports = router;
