@@ -1,8 +1,14 @@
 
 var lwip = require('lwip');
+var path = require('path');
 
-function getImageDataAndCreate(){
-	lwip.open('arch.jpg', function(err, image){
+function getImageDataAndCreate(input, output){
+	lwip.open(input, function(err, image){
+		if (!image){
+			console.log('Problem loading image');
+			return;
+		}
+
 		var height = image.height();
 		var width = image.width();
 
@@ -14,13 +20,13 @@ function getImageDataAndCreate(){
 				frameData[i].push(image.getPixel(j, i));
 			}
 		}
-		createImage(frameData);
+		createImage(frameData, input, output);
 	});
 }
 
-function setXYPixel(x, y, frameData, image){
+function setXYPixel(x, y, frameData, image, output){
 	if (x == image.height()){
-		image.writeFile('newImage.jpg', function(err){
+		image.writeFile(output, function(){
 				console.log('done');
 		});
 	} else {
@@ -38,23 +44,26 @@ function setXYPixel(x, y, frameData, image){
 			} else {
 				y += 1;	
 			}
-			setXYPixel(x, y, frameData, image);
+			setXYPixel(x, y, frameData, image, output);
 		});	
 	}
 
 	return;
 }
 
-function createImage(frameData){
-	lwip.open('arch.jpg', function(err, image){
+function createImage(frameData, input, output){
+	lwip.open(input, function(err, image){
 		var height = image.height();
 		var width = image.width();
 
 		lwip.create(width, height, [0, 0, 0], function(err, newImage){
-			setXYPixel(0, 0, frameData, newImage);			
+			setXYPixel(0, 0, frameData, newImage, output);			
 		});
 	});
 }
 
-getImageDataAndCreate();
+//getImageDataAndCreate(process.argv[2], process.argv[3]);
+// getImageDataAndCreate('4.jpg', '4-out.jpg');
+// getImageDataAndCreate('5.jpg', '5-out.jpg');
+//console.log(process.argv[2], process.argv[3]); 
 
