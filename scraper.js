@@ -20,10 +20,10 @@ function repopulate(req, res, next) {
                 eventData['ra'] = $(columns[1]).html().trim();
                 eventData['dec'] = $(columns[2]).html().trim();
                 eventData['orbital_period'] = $(columns[3]).html().trim();
-                eventData['MAXI_flux_change_prob'] = $(columns[4]).html().trim();
+                eventData['MAXI_flux_change_prob'] = $(row).find('td div.formated_cell span').html().trim();
                 eventData['MAXI_avg_flux_mCrab'] = $(columns[5]).html().trim();
                 eventData['MAXI_data_date'] = $(columns[6]).html().trim();
-                eventData['swift_avg_flux_change_prob'] = $(columns[7]).html().trim();
+                eventData['swift_avg_flux_change_prob'] = $(row).find('td div.formated_cell span').html().trim();
                 eventData['swift_avg_flux_mCrab'] = $(columns[8]).html().trim();
                 eventData['swift_data_date'] = $(columns[9]).html().trim();
                 eventData['fermi_flux_change_prob'] = $(columns[10]).html().trim();
