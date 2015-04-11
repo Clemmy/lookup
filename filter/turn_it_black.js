@@ -31,7 +31,7 @@ function setXYPixel(x, y, frameData, image){
 			data = {r: 0, g: 0, b:0, a: data.a};
 		}
 
-		image.setPixel(x, y, data, function(err){
+		image.setPixel(y, x, data, function(err){
 			if (y == image.width() - 1){
 				y = 0;
 				x += 1;
