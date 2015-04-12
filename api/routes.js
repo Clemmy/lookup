@@ -3,11 +3,11 @@
 var express = require('express');
 var router = express.Router();
 var scraper = require('../scraper');
+var moment = require('moment');
+//var async = require('async');
+var TransientEvent = require('../models/transientEvent.model');
 
 router.get('/repopulate', function (req, res, next) {
-    //drop database
-    //scrape all
-    //repopulate database
     scraper.repopulate(req, res, next);
 });
 
@@ -16,8 +16,16 @@ router.get('/delta', function(req, res, next) {
     var date = req.body.date;
 });
 
-router.get('/transientevent', function(req, res, next) {
-
+// gets all transient events
+router.get('/transientevents', function(req, res, next) {
+    TransientEvent
+        .find()
+        .exec(function(error, events) {
+            if (error) {
+                next(error);
+            }
+            res.status(200).send(JSON.stringify(events, null, '\t'));
+    });
 });
 
 module.exports = router;
