@@ -10,36 +10,13 @@ module.exports = {
 };
 
 function saveEvents(events, callback) {
-    //async.each(events, saveEvent, callback);
-
-    var eventToSave = new TransientEvent(events[0]);
-
-    eventToSave.save(function(error) {
-        if (error) {
-            console.log(error);
-        }
-
-        console.log('done');
-    });
-
-    //TransientEvent.create(events[0], function(error) {
-    //    console.log('done');
-    //});
+    async.each(events, saveEvent, callback);
 }
 
 function saveEvent(event, callback) {
-    console.log(TransientEvent);
-
-
+    console.log(event);
     var eventToSave = new TransientEvent(event);
     eventToSave.save(function(error, savedEvent) {
-        if (error) {
-            next(error);
-        }
-        console.log(savedEvent);
-        callback(null);
+        callback(error);
     });
-
-    //TransientEvent.create(event, callback);
-    //var test = new TransientEvent(event);
 }
