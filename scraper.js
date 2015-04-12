@@ -43,13 +43,27 @@ function repopulate(req, res, next) {
             eventData['name'] = $(row).find('td div#name_cell').html().trim();
 
             var columns = $(row).find('td div.formated_cell');
-            eventData['ra'] = $(columns[1]).html().trim();
-            eventData['dec'] = $(columns[2]).html().trim();
-            eventData['orbital_period'] = $(columns[3]).html().trim();
 
-            temp = $(row).find('td div.formated_cell span').html().trim();
+            temp = $(columns[1]).html().trim();
             if (isDataValid(temp)) {
-                eventData['MAXI_flux_change_prob'] = temp.substring(0, temp.length-1)/100;
+                eventData['ra'] = temp;
+            }
+
+            temp = $(columns[2]).html().trim();
+            if (isDataValid(temp)) {
+                eventData['dec'] = temp;
+            }
+
+            temp = $(columns[3]).html().trim();
+            if (isDataValid(temp)) {
+                eventData['orbital_period'] = temp;
+            }
+
+            if ($(columns[4]).find('div.formated_cell').length !==0) {
+                temp = $(columns[4]).find('div.formated_cell span').html().trim();
+                if (isDataValid(temp)) {
+                    eventData['MAXI_flux_change_prob'] = temp.substring(0, temp.length-1)/100;
+                }
             }
 
             temp = $(columns[5]).html().trim();
@@ -59,13 +73,14 @@ function repopulate(req, res, next) {
 
             temp = $(columns[6]).html().trim();
             if (isDataValid(temp)) {
-                console.log(temp);
                 eventData['MAXI_data_date'] = utilities.formatDate(temp);
             }
 
-            temp = $(row).find('td div.formated_cell span').html().trim(); //this is exact same as the one for MAXI...
-            if (isDataValid(temp)) {
-                eventData['swift_avg_flux_change_prob'] = temp.substring(0, temp.length-1)/100;
+            if ($(columns[7]).find('div.formated_cell').length !==0) {
+                temp = $(columns[7]).find('div.formated_cell span').html().trim();
+                if (isDataValid(temp)) {
+                    eventData['swift_avg_flux_change_prob'] = temp.substring(0, temp.length-1)/100;
+                }
             }
 
             temp = $(columns[8]).html().trim();
@@ -75,13 +90,14 @@ function repopulate(req, res, next) {
 
             temp = $(columns[9]).html().trim();
             if (isDataValid(temp)) {
-                console.log(temp);
                 eventData['swift_data_date'] = utilities.formatDate(temp);
             }
 
-            temp = $(columns[10]).html().trim();
-            if (isDataValid(temp)) {
-                eventData['fermi_flux_change_prob'] = temp.substring(0, temp.length-1)/100;
+            if ($(columns[10]).find('div.formated_cell').length !==0) {
+                temp = $(columns[10]).find('div.formated_cell span').html().trim();
+                if (isDataValid(temp)) {
+                    eventData['fermi_flux_change_prob'] = temp.substring(0, temp.length-1)/100;
+                }
             }
 
             temp = $(columns[11]).html().trim(); // in keV cm^-2 s^-1
@@ -91,7 +107,6 @@ function repopulate(req, res, next) {
 
             temp = $(columns[12]).html().trim();
             if (isDataValid(temp)) {
-                console.log(temp);
                 eventData['fermi_data_date'] = utilities.formatDate(temp);
             }
 
