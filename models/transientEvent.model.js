@@ -1,13 +1,14 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+'use strict';
 
-var transientEventSchema = new Schema({
+var mongoose = require('mongoose');
+
+var transientEventSchema = mongoose.model('TransientEvent', {
     ra: String,
     dec: Number,
     orbital_period: Number,
     MAXI_flux_change_prob: Number,
     MAXI_avg_flux_mCrab: Number,
-    MAXI_data_date: Number,
+    MAXI_data_date: Date,
     swift_avg_flux_change_prob: Number,
     swift_avg_flux_mCrab: Number,
     swift_data_date: Date,
